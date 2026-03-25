@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+//    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -53,9 +55,8 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation(libs.androidx.material3)
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-// KSP o KAPT (dependiendo de tu configuración, aquí uso KSP)
-// ksp("androidx.room:room-compiler:2.6.1")
+
+    ksp("androidx.room:room-compiler:2.6.1")
 
 // DataStore para preferencias
     implementation("androidx.datastore:datastore-preferences:1.0.0")
