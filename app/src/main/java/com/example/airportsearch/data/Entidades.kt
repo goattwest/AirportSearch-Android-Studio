@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "airport")
 data class Airport(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0, // <-- ESTA ES LA CORRECCIÓN
     val name: String,
     @ColumnInfo(name = "iata_code") val iataCode: String,
     val passengers: Int

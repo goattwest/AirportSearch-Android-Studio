@@ -2,21 +2,17 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-//    id("org.jetbrains.kotlin.kapt")
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.example.airportsearch"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.airportsearch"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -39,6 +35,9 @@ android {
     buildFeatures {
         compose = true
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
@@ -54,19 +53,19 @@ dependencies {
     // Room para la base de datos
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
-    implementation(libs.androidx.material3)
+    implementation(libs.core.ktx)
 
     ksp("androidx.room:room-compiler:2.6.1")
 
-// DataStore para preferencias
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // DataStore para preferencias
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
-// ViewModel y Lifecycle para Compose
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    // ViewModel y Lifecycle para Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
 
-// Iconos extendidos de Material (para la estrella de favoritos)
-    implementation("androidx.compose.material:material-icons-extended:1.6.0")
+    // Iconos extendidos de Material (dejamos que el BOM gestione la versión)
+    implementation("androidx.compose.material:material-icons-extended")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -75,4 +74,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("androidx.core:core:1.15.0")
+        force("androidx.core:core-ktx:1.15.0")
+    }
 }
